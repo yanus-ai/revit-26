@@ -1,0 +1,3 @@
+1- when you install the code and compile(build) it, it will generate bin folder.
+2- go to bin\Debug\net8.0-windows\LeanPlugin.dll and copy all the path and replace it in LeanPlugin25Dev.addin.
+3- add LeanPlugin25Dev.addin to C:\ProgramData\Autodesk\Revit\Addins\2025 in your pc, and now when you open Revit the plugin is installed.

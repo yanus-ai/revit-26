@@ -1,0 +1,5 @@
+from revit location file.
+copy this 3 files to here:
+RevitAPI.dll
+RevitAPIUI.dll
+AdWindows.dll
