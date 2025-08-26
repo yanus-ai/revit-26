@@ -72,7 +72,7 @@ namespace YANUS_Connector.Http
                             //todo check msg and decide if go to login or all cool
                             if (msg.ToLower().Contains( "success"))
                             {
-                                TaskDialog.Show("Success", "3D Model data & textures sent successfully to YANUS.AI.");
+                                TaskDialog.Show("Success", "3D Model data & textures sent successfully to TYPUS.AI.");
                                 //TaskDialog.Show("Success", modelResponse.response.link);
 
                                 // Check if the window is already open
@@ -175,7 +175,7 @@ namespace YANUS_Connector.Http
                 catch (Exception ex)
                 {
                     loadingWindow.Close();
-                    TaskDialog.Show("YANUS Exception", "Exception: " + ex.Message);
+                    TaskDialog.Show("TYPUS.AI Exception", "Exception: " + ex.Message);
                 }
 
             }

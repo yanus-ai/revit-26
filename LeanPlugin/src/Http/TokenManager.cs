@@ -6,7 +6,7 @@ namespace YANUS_Connector.Http
 {
     public static class TokenManager
     {
-        private static string _filePath = "C:\\ProgramData\\YANUS_Connector\\token.txt";
+        private static string _filePath = "C:\\ProgramData\\TYPUS_Connector\\token.txt";
 
         // Method to initialize the file path
         public static void Initialize(string filePath)

@@ -62,7 +62,7 @@ namespace YANUS_Connector.GUI
                 }
 
                 //await  InitializeWebViewAsync();
-                var userDataFolder = "C:\\YanusConnectorWebView";
+                var userDataFolder = "C:\\TYPUSConnectorWebView";
                 if (!Directory.Exists(userDataFolder))
                 {
                     Directory.CreateDirectory(userDataFolder);

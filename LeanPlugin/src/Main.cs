@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
@@ -23,17 +24,20 @@ namespace YANUS_Connector
 
             GlobalData.app = application;
 
-            application.CreateRibbonTab("YANUS Connector");
+            application.CreateRibbonTab("TYPUS.AI Connector");
 
             // Add a new ribbon panel
-            RibbonPanel ribbonPanel = application.CreateRibbonPanel("YANUS Connector", "Connection");
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Connection");
             //var imagePath = Path.Combine("Resources", "images", "logo.png");
 
             //byte[] iconImage = (byte[])Properties.Resources.ResourceManager.GetObject("logo", Properties.Resources.Culture);
             //byte[] loginIconImage = (byte[])Properties.Resources.ResourceManager.GetObject("loginLogo", Properties.Resources.Culture);
 
-            byte[] iconImage = (byte[])Properties.Resources.ResourceManager.GetObject("logo_yanus3", Properties.Resources.Culture);
-            byte[] loginIconImage = (byte[])Properties.Resources.ResourceManager.GetObject("logo_yanus_inverted", Properties.Resources.Culture);
+            Bitmap iconImageBitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject("typus_logo", Properties.Resources.Culture);
+            byte[] iconImage = ImageToByteArray(iconImageBitmap);
+
+            Bitmap loginIconImageBitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject("typus_logo_reversed", Properties.Resources.Culture);
+            byte[] loginIconImage = ImageToByteArray(loginIconImageBitmap);
 
 
             //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -41,14 +45,14 @@ namespace YANUS_Connector
             //File.WriteAllBytes(imagePath, iconImage);
 
 
-            ContextualHelp contextualHelp = new ContextualHelp(ContextualHelpType.Url, "https://yanus.ai/plugins");
+            ContextualHelp contextualHelp = new ContextualHelp(ContextualHelpType.Url, "https://app.typus.ai/plugins");
 
             // Create a push button to trigger a command add it to the ribbon panel.
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             PushButtonData Send3DModelCommandData = new PushButtonData("Capture Regions",
                "Capture Regions", thisAssemblyPath, "YANUS_Connector.Commands.Send3DModelCommand");
-            Send3DModelCommandData.ToolTip = "Click from within a 3D/Camera view to send data to Yanus.AI\nDon't use Wireframe Visual Style";
+            Send3DModelCommandData.ToolTip = "Click from within a 3D/Camera view to send data to TYPUS.AI\nDon't use Wireframe Visual Style";
             if (iconImage != null)
                 Send3DModelCommandData.LargeImage = LoadImageFromByteArray(iconImage);
             Send3DModelCommandData.SetContextualHelp(contextualHelp);
@@ -64,7 +68,7 @@ namespace YANUS_Connector
 
             PushButtonData Send3DModelWithoutTextureCommandData = new PushButtonData("Capture",
                "Capture", thisAssemblyPath, "YANUS_Connector.Commands.Send3DModelWithoutTextureCommand");
-            Send3DModelWithoutTextureCommandData.ToolTip = "Click from within a 3D/Camera view to send data to Yanus.AI\nDon't use Wireframe Visual Style";
+            Send3DModelWithoutTextureCommandData.ToolTip = "Click from within a 3D/Camera view to send data to TYPUS.AI\nDon't use Wireframe Visual Style";
             if (iconImage != null)
                 Send3DModelWithoutTextureCommandData.LargeImage = LoadImageFromByteArray(iconImage);
             Send3DModelWithoutTextureCommandData.SetContextualHelp(contextualHelp);
@@ -98,7 +102,7 @@ namespace YANUS_Connector
 
 
             //Loginnnnnn
-            RibbonPanel loginRibbonPanel = application.CreateRibbonPanel("YANUS Connector", "Signin");
+            RibbonPanel loginRibbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Signin");
             PushButtonData LoginCommandData = new PushButtonData("LoginCommand",
             "Login", thisAssemblyPath, "YANUS_Connector.Commands.LoginCommand");
             LoginCommandData.ToolTip = "Click to login";
@@ -109,7 +113,7 @@ namespace YANUS_Connector
             PushButton LoginCommandbtn = (PushButton)loginRibbonPanel.AddItem(LoginCommandData);
 
             //Logoutttt
-            RibbonPanel logoutRibbonPanel = application.CreateRibbonPanel("YANUS Connector", "Logout");
+            RibbonPanel logoutRibbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Logout");
             PushButtonData LogoutCommandData = new PushButtonData("LogoutCommand",
             "Logout", thisAssemblyPath, "YANUS_Connector.Commands.LogoutCommand");
             LogoutCommandData.ToolTip = "Click to logout";
@@ -138,6 +142,15 @@ namespace YANUS_Connector
                 RevitAdapter.HideAppButtons();
             }
             return Result.Succeeded;
+        }
+
+        private byte[] ImageToByteArray(System.Drawing.Bitmap image)
+        {
+            using (var ms = new MemoryStream())
+            {
+                image.Save(ms, image.RawFormat);
+                return ms.ToArray();
+            }
         }
 
         private void TBox_EnterPressed(object sender, Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs e)

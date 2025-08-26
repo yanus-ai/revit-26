@@ -7,7 +7,7 @@
     <Grid>
         <Border Background="White" CornerRadius="10" Padding="20">
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Image  Source="/YANUSConnector;component/Resources/logo_yanus2.png" 
+                <Image  Source="/YANUSConnector;component/Resources/typus_logo.png" 
  Width="50" Height="50" Margin="0,0,0,0"/>
 
                 <TextBlock Text="Sending..." FontSize="16" FontWeight="Bold" 
