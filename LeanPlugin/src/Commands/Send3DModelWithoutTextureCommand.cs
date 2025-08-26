@@ -154,6 +154,7 @@ namespace YANUS_Connector.Commands
                     var json = HttpHandler.ImageDataToJson(imagePath, map, imagePathUnmapped);
                     if (json != "")
                     {
+                        json.WriteJsonToTxtFile("C:\\3DModelWithoutTexture.json");
                         HttpHandler.SendToBubbleAPI(json);
                     }
                     else

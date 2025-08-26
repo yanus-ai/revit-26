@@ -78,7 +78,8 @@ namespace YANUS_Connector
             TextBox tBox = ribbonPanel.AddItem(textData) as TextBox;
             tBox.Width = 250;
             tBox.PromptText = "Insert api here";
-            tBox.Value = "https://app.yanus.ai/api/1.1/wf/revitintegration";
+            tBox.Value = "https://app.typus.ai/api/webhooks/create-input-image";
+            //tBox.Value = "https://app.yanus.ai/api/1.1/wf/revitintegration";
             //tBox.Value = "https://app.yanus.ai/version-test/api/1.1/wf/revitintegration";
             //tBox.Value = "https://vistack4.bubbleapps.io/version-test/api/1.1/wf/revitintegration";
             apiValue = tBox.Value as string;

@@ -91,7 +91,8 @@ namespace YANUS_Connector.GUI
                     //webView.Source = new Uri("https://app.yanus.ai/signup?m=revitlogin");
 
                     //new production
-                    webView.Source = new Uri("https://app.yanus.ai/auth?m=plugin");
+                    //webView.Source = new Uri("https://app.yanus.ai/auth?m=plugin");
+                    webView.Source = new Uri("https://app.typus.ai/login");
                     //new development
                     //webView.Source = new Uri("https://app.yanus.ai/version-test/auth?m=plugin");
 
