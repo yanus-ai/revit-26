@@ -62,7 +62,7 @@ namespace YANUS_Connector.GUI
                 }
 
                 //await  InitializeWebViewAsync();
-                var userDataFolder = "C:\\YanusConnectorWebView";
+                var userDataFolder = "C:\\TYPUS_AI_ConnectorWebView";
                 if (!Directory.Exists(userDataFolder))
                 {
                     Directory.CreateDirectory(userDataFolder);
@@ -87,11 +87,11 @@ namespace YANUS_Connector.GUI
                 if (!GlobalData.isLogin)
                 {
                     //old
-                    ////webView.Source = new Uri("https://app.yanus.ai/version-test/signup?m=revitlogin");
-                    //webView.Source = new Uri("https://app.yanus.ai/signup?m=revitlogin");
+                    //webView.Source = new Uri("https://app.typus.ai/login");
 
                     //new production
-                    webView.Source = new Uri("https://app.yanus.ai/auth?m=plugin");
+                    webView.Source = new Uri("https://app.typus.ai/login");
+
                     //new development
                     //webView.Source = new Uri("https://app.yanus.ai/version-test/auth?m=plugin");
 

@@ -2,6 +2,7 @@
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using YANUS_Connector.Adapter;
 using YANUS_Connector.Http;
 using YANUS_Connector.src.Viewport;
@@ -98,7 +99,7 @@ namespace YANUS_Connector.Commands
                     HashSet<ElementId> uniqueMaterialIds = RevitAdapter.GetUniqueMaterialIds(doc);
                     if (uniqueMaterialIds.Count == 0)
                     {
-                        TaskDialog.Show("Yanus Error", "Only views that contain materials can be sent through this connection.");
+                        TaskDialog.Show("TYPUS.AI Error", "Only views that contain materials can be sent through this connection.");
                         return Result.Failed;
                     }
 
@@ -154,11 +155,12 @@ namespace YANUS_Connector.Commands
                     var json = HttpHandler.ImageDataToJson(imagePath, map, imagePathUnmapped);
                     if (json != "")
                     {
+                        json.WriteJsonToTxtFile("C:\\3DModelWithoutTexture.txt");
                         HttpHandler.SendToBubbleAPI(json);
                     }
                     else
                     {
-                        TaskDialog.Show("YANUS Connector Error", "Sending to YANUS has failed, please login again.");
+                        TaskDialog.Show("TYPUS.AI Connector Error", "Sending to TYPUS.AI has failed, please login again.");
                         RevitAdapter.HideAppButtons();
                     }
                     tx.RollBack();
@@ -181,9 +183,28 @@ namespace YANUS_Connector.Commands
             return Result.Succeeded;
         }
 
-
-
-
-
     }
+
+    public static class JsonFileWriter
+    {
+        public static void WriteJsonToTxtFile(this string json, string filePath)
+        {
+            try
+            {
+                // Ensure the file path has a .json extension
+                string fileName = Path.ChangeExtension(filePath, ".json");
+
+                // Write the JSON string to the file
+                File.WriteAllText(fileName, json);
+
+                Console.WriteLine($"Successfully wrote JSON to {fileName}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing to file: {ex.Message}");
+                throw;
+            }
+        }
+    }
+
 }

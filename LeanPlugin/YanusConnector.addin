@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <RevitAddIns>
-	<!--add to C:\ProgramData\Autodesk\Revit\Addins\year in dev pc-->
 	<AddIn Type="Application">
 		<Assembly>YANUSConnector.dll</Assembly>
 		<AddInId>1C7BA76E-63AF-4727-B0BB-03649BEE0F6F</AddInId>
 		<FullClassName>YANUS_Connector.Main</FullClassName>
-		<Name>YanusConnector</Name>
-		<VendorId>YANUSConnector</VendorId>
-		<VendorDescription>YANUSConnector revit</VendorDescription>
+		<Name>TYPUSConnector</Name>
+		<VendorId>TYPUSConnector</VendorId>
+		<VendorDescription>TYPUSConnector revit</VendorDescription>
 	</AddIn>
 </RevitAddIns>

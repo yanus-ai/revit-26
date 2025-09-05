@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
@@ -23,32 +24,32 @@ namespace YANUS_Connector
 
             GlobalData.app = application;
 
-            application.CreateRibbonTab("YANUS Connector");
+            application.CreateRibbonTab("TYPUS.AI Connector");
 
             // Add a new ribbon panel
-            RibbonPanel ribbonPanel = application.CreateRibbonPanel("YANUS Connector", "Connection");
-            //var imagePath = Path.Combine("Resources", "images", "logo.png");
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Connection");
 
-            //byte[] iconImage = (byte[])Properties.Resources.ResourceManager.GetObject("logo", Properties.Resources.Culture);
-            //byte[] loginIconImage = (byte[])Properties.Resources.ResourceManager.GetObject("loginLogo", Properties.Resources.Culture);
+            // Retrieve the resources as Bitmap
+            Bitmap typusLogo = Properties.Resources.ResourceManager.GetObject("Typus_Logo", Properties.Resources.Culture) as Bitmap;
+            Bitmap typusLogoInverted = Properties.Resources.ResourceManager.GetObject("Typus_Logo_Inverted", Properties.Resources.Culture) as Bitmap;
 
-            byte[] iconImage = (byte[])Properties.Resources.ResourceManager.GetObject("logo_yanus3", Properties.Resources.Culture);
-            byte[] loginIconImage = (byte[])Properties.Resources.ResourceManager.GetObject("logo_yanus_inverted", Properties.Resources.Culture);
-
+            // Convert to byte arrays
+            byte[] iconImage = typusLogo != null ? BitmapToByteArray(typusLogo) : null;
+            byte[] loginIconImage = typusLogoInverted != null ? BitmapToByteArray(typusLogoInverted) : null;
 
             //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //string imagePath = Path.Combine(desktopPath, "test_image.png");
             //File.WriteAllBytes(imagePath, iconImage);
 
 
-            ContextualHelp contextualHelp = new ContextualHelp(ContextualHelpType.Url, "https://yanus.ai/plugins");
+            ContextualHelp contextualHelp = new ContextualHelp(ContextualHelpType.Url, "https://app.typus.ai/plugins");
 
             // Create a push button to trigger a command add it to the ribbon panel.
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             PushButtonData Send3DModelCommandData = new PushButtonData("Capture Regions",
                "Capture Regions", thisAssemblyPath, "YANUS_Connector.Commands.Send3DModelCommand");
-            Send3DModelCommandData.ToolTip = "Click from within a 3D/Camera view to send data to Yanus.AI\nDon't use Wireframe Visual Style";
+            Send3DModelCommandData.ToolTip = "Click from within a 3D/Camera view to send data to TYPUS.AI\nDon't use Wireframe Visual Style";
             if (iconImage != null)
                 Send3DModelCommandData.LargeImage = LoadImageFromByteArray(iconImage);
             Send3DModelCommandData.SetContextualHelp(contextualHelp);
@@ -64,7 +65,7 @@ namespace YANUS_Connector
 
             PushButtonData Send3DModelWithoutTextureCommandData = new PushButtonData("Capture",
                "Capture", thisAssemblyPath, "YANUS_Connector.Commands.Send3DModelWithoutTextureCommand");
-            Send3DModelWithoutTextureCommandData.ToolTip = "Click from within a 3D/Camera view to send data to Yanus.AI\nDon't use Wireframe Visual Style";
+            Send3DModelWithoutTextureCommandData.ToolTip = "Click from within a 3D/Camera view to send data to TYPUS.AI\nDon't use Wireframe Visual Style";
             if (iconImage != null)
                 Send3DModelWithoutTextureCommandData.LargeImage = LoadImageFromByteArray(iconImage);
             Send3DModelWithoutTextureCommandData.SetContextualHelp(contextualHelp);
@@ -78,7 +79,7 @@ namespace YANUS_Connector
             TextBox tBox = ribbonPanel.AddItem(textData) as TextBox;
             tBox.Width = 250;
             tBox.PromptText = "Insert api here";
-            tBox.Value = "https://app.yanus.ai/api/1.1/wf/revitintegration";
+            tBox.Value = "https://app.typus.ai/api/webhooks/create-input-image";
             //tBox.Value = "https://app.yanus.ai/version-test/api/1.1/wf/revitintegration";
             //tBox.Value = "https://vistack4.bubbleapps.io/version-test/api/1.1/wf/revitintegration";
             apiValue = tBox.Value as string;
@@ -97,7 +98,7 @@ namespace YANUS_Connector
 
 
             //Loginnnnnn
-            RibbonPanel loginRibbonPanel = application.CreateRibbonPanel("YANUS Connector", "Signin");
+            RibbonPanel loginRibbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Signin");
             PushButtonData LoginCommandData = new PushButtonData("LoginCommand",
             "Login", thisAssemblyPath, "YANUS_Connector.Commands.LoginCommand");
             LoginCommandData.ToolTip = "Click to login";
@@ -108,7 +109,7 @@ namespace YANUS_Connector
             PushButton LoginCommandbtn = (PushButton)loginRibbonPanel.AddItem(LoginCommandData);
 
             //Logoutttt
-            RibbonPanel logoutRibbonPanel = application.CreateRibbonPanel("YANUS Connector", "Logout");
+            RibbonPanel logoutRibbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Logout");
             PushButtonData LogoutCommandData = new PushButtonData("LogoutCommand",
             "Logout", thisAssemblyPath, "YANUS_Connector.Commands.LogoutCommand");
             LogoutCommandData.ToolTip = "Click to logout";
@@ -139,6 +140,15 @@ namespace YANUS_Connector
             return Result.Succeeded;
         }
 
+        // Method to convert Bitmap to byte[]
+        private byte[] BitmapToByteArray(Bitmap bitmap)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, bitmap.RawFormat); // Save the bitmap to the memory stream in its original format
+                return ms.ToArray(); // Return the byte array
+            }
+        }
         private void TBox_EnterPressed(object sender, Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs e)
         {
 
