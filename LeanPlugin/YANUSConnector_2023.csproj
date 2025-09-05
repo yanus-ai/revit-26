@@ -131,8 +131,8 @@
     <Content Include="howToInstall.txt" />
     <Content Include="Properties\PublishProfiles\FolderProfile.pubxml.user" />
     <Content Include="Resources\loginLogo.jpeg" />
-    <Resource Include="Resources\Typus_Logo_Inverted.png" />
-    <Resource Include="Resources\Typus_Logo.jpg" />
+    <Resource Include="Resources\typus_logo_reversed.png" />
+    <Resource Include="Resources\typus_logo.png" />
     <Resource Include="Resources\logo_yanus3.png" />
     <Resource Include="Resources\logo_yanus_inverted.png" />
     <Resource Include="Resources\logo_yanus2.png" />

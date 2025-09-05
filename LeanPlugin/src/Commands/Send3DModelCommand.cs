@@ -151,7 +151,7 @@ namespace YANUS_Connector.Commands
                     var json = HttpHandler.ImageDataToJson(imagePath, map);
                     if (json != "")
                     {
-                        json.WriteJsonToTxtFile("C:\\3DModel.txt");
+                        json.WriteJsonToTxtFile("C:\\3DModel.json");
                         HttpHandler.SendToBubbleAPI(json);
                     }
                     else
@@ -220,6 +220,28 @@ namespace YANUS_Connector.Commands
             if (cat != null && view.CanCategoryBeHidden(cat.Id))
             {
                 view.SetCategoryHidden(cat.Id, true);
+            }
+        }
+    }
+
+    public static class JsonFileWriter
+    {
+        public static void WriteJsonToTxtFile(this string json, string filePath)
+        {
+            try
+            {
+                // Ensure the file path has a .json extension
+                string fileName = Path.ChangeExtension(filePath, ".json");
+
+                // Write the JSON string to the file
+                File.WriteAllText(fileName, json);
+
+                Console.WriteLine($"Successfully wrote JSON to {fileName}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing to file: {ex.Message}");
+                throw;
             }
         }
     }

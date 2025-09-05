@@ -70,7 +70,7 @@ namespace YANUS_Connector.Http
                             var msg = modelResponse.response.message;
                             //TaskDialog.Show("msg", msg);
                             //todo check msg and decide if go to login or all cool
-                            if (msg.Contains("success"))
+                            if (msg.ToLower().Contains( "success"))
                             {
                                 TaskDialog.Show("Success", "3D Model data & textures sent successfully to TYPUS.AI.");
                                 //TaskDialog.Show("Success", modelResponse.response.link);
@@ -97,7 +97,7 @@ namespace YANUS_Connector.Http
                             }
                             else if (msg == "credit_error")
                             {
-
+                                
                                 TaskDialog dialog = new TaskDialog("Not sufficient Credits")
                                 {
                                     MainInstruction = "Visit our website",

@@ -28,14 +28,17 @@ namespace YANUS_Connector
 
             // Add a new ribbon panel
             RibbonPanel ribbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Connection");
+            //var imagePath = Path.Combine("Resources", "images", "logo.png");
 
-            // Retrieve the resources as Bitmap
-            Bitmap typusLogo = Properties.Resources.ResourceManager.GetObject("Typus_Logo", Properties.Resources.Culture) as Bitmap;
-            Bitmap typusLogoInverted = Properties.Resources.ResourceManager.GetObject("Typus_Logo_Inverted", Properties.Resources.Culture) as Bitmap;
+            //byte[] iconImage = (byte[])Properties.Resources.ResourceManager.GetObject("logo", Properties.Resources.Culture);
+            //byte[] loginIconImage = (byte[])Properties.Resources.ResourceManager.GetObject("loginLogo", Properties.Resources.Culture);
 
-            // Convert to byte arrays
-            byte[] iconImage = typusLogo != null ? BitmapToByteArray(typusLogo) : null;
-            byte[] loginIconImage = typusLogoInverted != null ? BitmapToByteArray(typusLogoInverted) : null;
+            Bitmap iconImageBitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject("typus_logo", Properties.Resources.Culture);
+            byte[] iconImage = ImageToByteArray(iconImageBitmap);
+
+            Bitmap loginIconImageBitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject("typus_logo_reversed", Properties.Resources.Culture);
+            byte[] loginIconImage = ImageToByteArray(loginIconImageBitmap);
+
 
             //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //string imagePath = Path.Combine(desktopPath, "test_image.png");
@@ -80,6 +83,7 @@ namespace YANUS_Connector
             tBox.Width = 250;
             tBox.PromptText = "Insert api here";
             tBox.Value = "https://app.typus.ai/api/webhooks/create-input-image";
+            //tBox.Value = "https://app.yanus.ai/api/1.1/wf/revitintegration";
             //tBox.Value = "https://app.yanus.ai/version-test/api/1.1/wf/revitintegration";
             //tBox.Value = "https://vistack4.bubbleapps.io/version-test/api/1.1/wf/revitintegration";
             apiValue = tBox.Value as string;
@@ -140,15 +144,15 @@ namespace YANUS_Connector
             return Result.Succeeded;
         }
 
-        // Method to convert Bitmap to byte[]
-        private byte[] BitmapToByteArray(Bitmap bitmap)
+        private byte[] ImageToByteArray(System.Drawing.Bitmap image)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
-                bitmap.Save(ms, bitmap.RawFormat); // Save the bitmap to the memory stream in its original format
-                return ms.ToArray(); // Return the byte array
+                image.Save(ms, image.RawFormat);
+                return ms.ToArray();
             }
         }
+
         private void TBox_EnterPressed(object sender, Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs e)
         {
 
