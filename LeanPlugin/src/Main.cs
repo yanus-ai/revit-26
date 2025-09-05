@@ -144,7 +144,7 @@ namespace YANUS_Connector
             return Result.Succeeded;
         }
 
-        private byte[] ImageToByteArray(System.Drawing.Bitmap image)
+        private byte[] ImageToByteArray(Bitmap image)
         {
             using (var ms = new MemoryStream())
             {

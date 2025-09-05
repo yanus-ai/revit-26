@@ -13,6 +13,7 @@ using Microsoft.Web.WebView2.Core;
 using YANUSConnector.Adapter;
 using System.Resources;
 using YANUSConnector.Http;
+using System.Drawing;
 
 namespace YANUSConnector
 
@@ -28,23 +29,27 @@ namespace YANUSConnector
         {
             GlobalData.app = application;
 
-            application.CreateRibbonTab("YANUS Connector");
+            application.CreateRibbonTab("TYPUS.AI Connector");
 
             // Add a new ribbon panel
-            RibbonPanel ribbonPanel = application.CreateRibbonPanel("YANUS Connector", "Connection");
-            var imagePath = Path.Combine("Resources", "images", "logo.png");
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel("TYPUS.AI Connector", "Connection");
+            var imagePath = Path.Combine("Resources", "images", "typus_logo.png");
 
-            byte[] iconImage = (byte[])YANUSConnector.Properties.Resources.ResourceManager.GetObject("logo", YANUSConnector.Properties.Resources.Culture);
-            byte[] loginIconImage = (byte[])YANUSConnector.Properties.Resources.ResourceManager.GetObject("loginLogo", YANUSConnector.Properties.Resources.Culture);
+            Bitmap iconImageBitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject("typus_logo", Properties.Resources.Culture);
+            byte[] iconImage = ImageToByteArray(iconImageBitmap);
 
-            ContextualHelp contextualHelp = new ContextualHelp(ContextualHelpType.Url, "https://yanus.ai/plugins");
+            Bitmap loginIconImageBitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject("typus_logo_reversed", Properties.Resources.Culture);
+            byte[] loginIconImage = ImageToByteArray(loginIconImageBitmap); 
+            
+            ContextualHelp contextualHelp = new ContextualHelp(ContextualHelpType.Url, "https://app.typus.ai/plugins");
+
 
             // Create a push button to trigger a command add it to the ribbon panel.
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             PushButtonData Send3DModelCommandData = new PushButtonData("Send3DModel",
                "Send 3D Model", thisAssemblyPath, "YANUSConnector.Commands.Send3DModelCommand");
-            Send3DModelCommandData.ToolTip = "Click from within a 3D/Camera view to send data to Yanus.AI\nDon't use Wireframe Visual Style";
+            Send3DModelCommandData.ToolTip = "Click from within a 3D/Camera view to send data to TYPUS.AI\nDon't use Wireframe Visual Style";
             Send3DModelCommandData.LargeImage = LoadImageFromByteArray(iconImage!);
             Send3DModelCommandData.SetContextualHelp(contextualHelp);
 
@@ -57,7 +62,7 @@ namespace YANUSConnector
             TextBox tBox = ribbonPanel.AddItem(textData) as TextBox;
             tBox.Width = 100;
             tBox.PromptText = "Insert api here";
-            tBox.Value = "https://app.yanus.ai/api/1.1/wf/revitintegration";
+            tBox.Value = "https://app.typus.ai/api/webhooks/create-input-image";
             //tBox.Value = "https://app.yanus.ai/version-test/api/1.1/wf/revitintegration";
             //tBox.Value = "https://vistack4.bubbleapps.io/version-test/api/1.1/wf/revitintegration";
             apiValue = tBox.Value as string;
@@ -107,6 +112,14 @@ namespace YANUSConnector
             return Result.Succeeded;
         }
 
+        private byte[] ImageToByteArray(System.Drawing.Bitmap image)
+        {
+            using (var ms = new MemoryStream())
+            {
+                image.Save(ms, image.RawFormat);
+                return ms.ToArray();
+            }
+        }
         private void TBox_EnterPressed(object? sender, Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs e)
         {
 

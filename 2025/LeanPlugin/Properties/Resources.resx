@@ -133,4 +133,10 @@
   <data name="logo_yanus3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_yanus3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="typus_logo_reversed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\typus_logo_reversed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="typus_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\typus_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -166,4 +166,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.2903.40\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.2903.40\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)"."" "$(AppData)\Autodesk\Revit\Addins\2022\"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -13,7 +13,7 @@ namespace YANUSConnector.Adapter
     {
         public static void ShowAppButtons()
         {
-            var list = GlobalData.app.GetRibbonPanels("YANUS Connector");
+            var list = GlobalData.app.GetRibbonPanels("TYPUS.AI Connector");
             foreach (var ribbon in list)
             {
                 if (ribbon.Name == "Connection")
@@ -27,7 +27,7 @@ namespace YANUSConnector.Adapter
         }
         public static void HideAppButtons()
         {
-            var list = GlobalData.app.GetRibbonPanels("YANUS Connector");
+            var list = GlobalData.app.GetRibbonPanels("TYPUS.AI Connector");
             foreach (var ribbon in list)
             {
                 if (ribbon.Name == "Connection")

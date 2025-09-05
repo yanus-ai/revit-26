@@ -9,7 +9,7 @@
         Title="WebView" Height="450" Width="800">
     <DockPanel>
         <Wpf:WebView2 Name="webView"
-                  Source="https://app.yanus.ai/signup?m=revitlogin"
+                  Source="https://app.typus.ai/login"
    />
     </DockPanel>
 </Window>

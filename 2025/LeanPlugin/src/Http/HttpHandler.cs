@@ -67,9 +67,9 @@ namespace YANUSConnector.Http
                             var msg = modelResponse.response.message;
                             //TaskDialog.Show("msg", msg);
                             //todo check msg and decide if go to login or all cool
-                            if (msg == "Success")
+                            if (msg.ToLower().Contains("success"))
                             {
-                                TaskDialog.Show("Success", "3D Model data & textures sent successfully to YANUS.AI.");
+                                TaskDialog.Show("Success", "3D Model data & textures sent successfully to TYPUS.AI.");
                                 //TaskDialog.Show("Success", modelResponse.response.link);
 
                                 // Check if the window is already open
